@@ -1,5 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/todo.dart';
+import 'package:flutter_todo/src/screens/splash/splash_page.dart';
+import 'package:flutter_todo/src/config/string_constants.dart'
+    as string_constant;
+import 'package:flutter_todo/src/screens/todos/todos.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,45 +12,46 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: string_constant.appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      debugShowCheckedModeBanner: false,
+      home: const MyHomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
-  var todoItems = [
-    'Math',
-    'Architecture',
-    'Biology',
-    'Flutter',
-    'Artificial Intelligences',
-  ];
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(
+      const Duration(seconds: 5),
+      () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TodosList(),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todo'),
-      ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: todoItems.length,
-          itemBuilder: (context, index) {
-            var item = todoItems[index];
-            return Todo(title: item);
-          },
-        ),
-      ),
+    return const Scaffold(
+      body: Splash(),
     );
   }
 }
