@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/src/screens/splash/splash_page.dart';
+import 'package:flutter_todo/src/screens/splash/splash_screen.dart';
 import 'package:flutter_todo/src/config/string_constants.dart'
     as string_constant;
-import 'package:flutter_todo/src/screens/todos/todos.dart';
+import 'package:flutter_todo/src/screens/todos/todo_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Splash(),
+      body: SplashScreen(),
     );
   }
 }

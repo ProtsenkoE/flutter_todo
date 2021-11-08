@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/src/config/color_constants.dart';
 import 'package:flutter_todo/src/config/image_constants.dart';
-import 'package:flutter_todo/src/models/todos.dart';
+import 'package:flutter_todo/src/models/todo.dart';
 
-class Todo extends StatelessWidget {
-  final Todos todos;
+class TodoWrapperScreen extends StatelessWidget {
+  final Todo todo;
 
-  const Todo({
+  const TodoWrapperScreen({
     Key? key,
-    required this.todos,
+    required this.todo,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [_checkbox(), _avatar(), _userName()],
+      children: [
+        _checkbox(),
+        _avatar(),
+        _userName(),
+      ],
     );
   }
 
@@ -22,7 +26,7 @@ class Todo extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
       child: Text(
-        todos.title,
+        todo.title,
         style: const TextStyle(
           fontSize: 24.0,
           shadows: [
@@ -45,8 +49,8 @@ class Todo extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorConstants.lightBlueColor,
         image: DecorationImage(
-          image: todos.image != ''
-              ? NetworkImage(todos.image)
+          image: todo.image != ''
+              ? NetworkImage(todo.image)
               : NetworkImage(AllImages().defaultImage),
           fit: BoxFit.contain,
         ),

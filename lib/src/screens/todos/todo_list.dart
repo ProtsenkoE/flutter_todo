@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/src/config/color_constants.dart';
-import 'package:flutter_todo/src/models/todos.dart';
-import 'package:flutter_todo/src/screens/todos/todo.dart';
+import 'package:flutter_todo/src/models/todo.dart';
+import 'package:flutter_todo/src/screens/todos/todo_wrapper_screen.dart';
 import 'package:flutter_todo/src/config/image_constants.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:flutter_todo/src/config/string_constants.dart'
@@ -51,7 +51,7 @@ class UpPanel extends StatelessWidget {
         child: Stack(
           children: [
             const TopBar(),
-            ListWrapper(todoItems: todoItems),
+            ListWrapper(todoList: todoList),
           ],
         ),
       ),
@@ -130,10 +130,10 @@ class UpPanel extends StatelessWidget {
 class ListWrapper extends StatelessWidget {
   const ListWrapper({
     Key? key,
-    required this.todoItems,
+    required this.todoList,
   }) : super(key: key);
 
-  final List<Todos> todoItems;
+  final List<Todo> todoList;
 
   @override
   Widget build(BuildContext context) {
@@ -152,10 +152,10 @@ class ListWrapper extends StatelessWidget {
               ),
             ),
             child: ListView.builder(
-              itemCount: todoItems.length,
+              itemCount: todoList.length,
               itemBuilder: (context, index) {
-                var item = todoItems[index];
-                return Todo(todos: item);
+                var item = todoList[index];
+                return TodoWrapperScreen(todo: item);
               },
             ),
           )

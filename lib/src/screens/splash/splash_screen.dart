@@ -4,8 +4,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_todo/src/config/string_constants.dart'
     as string_constant;
 
-class Splash extends StatelessWidget {
-  const Splash({
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({
     Key? key,
   }) : super(key: key);
 
