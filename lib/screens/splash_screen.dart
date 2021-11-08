@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_todo/src/config/color_constants.dart';
+import 'package:flutter_todo/config/color_constants.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_todo/src/config/string_constants.dart'
-    as string_constant;
+import 'package:flutter_todo/config/string_constants.dart' as string_constant;
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({

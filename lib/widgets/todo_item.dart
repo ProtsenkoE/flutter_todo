@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/src/config/color_constants.dart';
-import 'package:flutter_todo/src/config/image_constants.dart';
-import 'package:flutter_todo/src/models/todo.dart';
+import 'package:flutter_todo/config/color_constants.dart';
+import 'package:flutter_todo/config/image_constants.dart';
+import 'package:flutter_todo/models/todo.dart';
 
-class TodoWrapperScreen extends StatelessWidget {
+class TodoItem extends StatefulWidget {
   final Todo todo;
 
-  const TodoWrapperScreen({
+  const TodoItem({
     Key? key,
     required this.todo,
   }) : super(key: key);
 
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+}
+
+class _TodoItemState extends State<TodoItem> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -26,7 +31,7 @@ class TodoWrapperScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
       child: Text(
-        todo.title,
+        widget.todo.title,
         style: const TextStyle(
           fontSize: 24.0,
           shadows: [
@@ -49,8 +54,8 @@ class TodoWrapperScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorConstants.lightBlueColor,
         image: DecorationImage(
-          image: todo.image != ''
-              ? NetworkImage(todo.image)
+          image: widget.todo.image != ''
+              ? NetworkImage(widget.todo.image)
               : NetworkImage(AllImages().defaultImage),
           fit: BoxFit.contain,
         ),
@@ -72,10 +77,14 @@ class TodoWrapperScreen extends StatelessWidget {
 
   Checkbox _checkbox() {
     return Checkbox(
-      value: true,
+      value: widget.todo.isChecked,
       checkColor: ColorConstants.creamColor,
       activeColor: ColorConstants.mintColor,
-      onChanged: (bool? value) {},
+      onChanged: (bool? value) {
+        setState(() {
+          widget.todo.isChecked = value!;
+        });
+      },
     );
   }
 }

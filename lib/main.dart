@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/src/screens/splash/splash_screen.dart';
-import 'package:flutter_todo/src/config/string_constants.dart'
-    as string_constant;
-import 'package:flutter_todo/src/screens/todos/todo_list.dart';
+import 'package:flutter_todo/screens/splash_screen.dart';
+import 'package:flutter_todo/config/string_constants.dart' as string_constant;
+import 'package:flutter_todo/screens/todo_wrapper_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const TodosList(),
+          builder: (context) => const TodosWrapperScreen(),
         ),
       ),
     );

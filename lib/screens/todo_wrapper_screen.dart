@@ -1,24 +1,58 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/src/config/color_constants.dart';
-import 'package:flutter_todo/src/models/todo.dart';
-import 'package:flutter_todo/src/screens/todos/todo_wrapper_screen.dart';
-import 'package:flutter_todo/src/config/image_constants.dart';
+import 'package:flutter_todo/config/color_constants.dart';
+import 'package:flutter_todo/models/todo.dart';
+import 'package:flutter_todo/widgets/todo_item_wrapper.dart';
+import 'package:flutter_todo/widgets/top_bar.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:flutter_todo/src/config/string_constants.dart'
-    as string_constant;
+import 'package:flutter_todo/config/string_constants.dart' as string_constant;
 
 final PanelController _pc1 = PanelController();
 
-class TodosList extends StatefulWidget {
-  const TodosList({Key? key}) : super(key: key);
+class TodosWrapperScreen extends StatefulWidget {
+  const TodosWrapperScreen({Key? key}) : super(key: key);
 
   @override
-  State<TodosList> createState() => _TodosListState();
+  State<TodosWrapperScreen> createState() => _TodosWrapperScreenState();
 }
 
-class _TodosListState extends State<TodosList> {
-  @override
+// TODO
+List<Todo> getTodoList() {
+  final List<Todo> todoList = [
+    Todo(
+        title: 'Math',
+        isChecked: true,
+        image:
+            'https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg'),
+    Todo(
+        title: 'Architecture',
+        isChecked: false,
+        image:
+            'https://www.cnet.com/a/img/liJ9UZA87zs1viJiuEfVnL7YYfw=/940x0/2020/05/18/5bac8cc1-4bd5-4496-a8c3-66a6cd12d0cb/fb-avatar-2.jpg'),
+    Todo(
+        title: 'Biology',
+        isChecked: false,
+        image:
+            'https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg'),
+    Todo(
+        title: 'Math',
+        isChecked: false,
+        image:
+            'https://www.cnet.com/a/img/liJ9UZA87zs1viJiuEfVnL7YYfw=/940x0/2020/05/18/5bac8cc1-4bd5-4496-a8c3-66a6cd12d0cb/fb-avatar-2.jpg'),
+    Todo(
+        title: 'Architecture',
+        isChecked: false,
+        image:
+            'https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg'),
+    Todo(title: 'Biology', isChecked: false, image: ''),
+    Todo(title: 'Math', isChecked: false, image: ''),
+    Todo(title: 'Architecture', isChecked: false, image: ''),
+  ];
+
+  return todoList;
+}
+
+class _TodosWrapperScreenState extends State<TodosWrapperScreen> {
   @override
   Widget build(BuildContext context) {
     BorderRadiusGeometry radius = const BorderRadius.only(
@@ -51,7 +85,7 @@ class UpPanel extends StatelessWidget {
         child: Stack(
           children: [
             const TopBar(),
-            ListWrapper(todoList: todoList),
+            TodoItemWrapper(todoList: getTodoList()),
           ],
         ),
       ),
@@ -123,63 +157,6 @@ class UpPanel extends StatelessWidget {
   Center _panelMain() {
     return const Center(
       child: Text("Sliding Widget"),
-    );
-  }
-}
-
-class ListWrapper extends StatelessWidget {
-  const ListWrapper({
-    Key? key,
-    required this.todoList,
-  }) : super(key: key);
-
-  final List<Todo> todoList;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 134.0,
-      child: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-              ),
-            ),
-            child: ListView.builder(
-              itemCount: todoList.length,
-              itemBuilder: (context, index) {
-                var item = todoList[index];
-                return TodoWrapperScreen(todo: item);
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class TopBar extends StatelessWidget {
-  const TopBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Image(
-        fit: BoxFit.fill,
-        image: AssetImage('${AllImages().image}/bg_top.png'),
-      ),
     );
   }
 }
