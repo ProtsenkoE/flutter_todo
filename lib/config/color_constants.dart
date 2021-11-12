@@ -17,10 +17,13 @@ class ColorConstants {
   static Color darkBlueColor = hexToColor('#3C5CA5');
   static Color moreDarkBlueColor = hexToColor('#3B5BA4');
   static Color blueColor = hexToColor('#5E92F3');
+  static Color blueColor2 = hexToColor('#387AC7');
 
   static Color lightOrangeColor = hexToColor('#EB7407');
   static Color orangeColor = hexToColor('#F84007');
 
   static Color creamColor = hexToColor('#FFF9F9');
   static Color mintColor = hexToColor('#46E7B6');
+
+  static Color lightMintColor = hexToColor('#6BE5AB');
 }

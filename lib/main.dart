@@ -4,7 +4,10 @@ import 'package:flutter_todo/screens/splash_screen.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constant;
 import 'package:flutter_todo/screens/todo_wrapper_screen.dart';
 
+import 'config/router.dart';
+
 void main() {
+  RouterFluro.setupRouter();
   runApp(const MyApp());
 }
 
@@ -14,12 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      onGenerateRoute: RouterFluro.router.generator,
       title: string_constant.appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
     );
   }
 }

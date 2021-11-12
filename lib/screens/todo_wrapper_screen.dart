@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/config/color_constants.dart';
 import 'package:flutter_todo/models/todo.dart';
+import 'package:flutter_todo/widgets/button_up_panel.dart';
+import 'package:flutter_todo/widgets/header_up_panel.dart';
+import 'package:flutter_todo/widgets/main_up_panel.dart';
 import 'package:flutter_todo/widgets/todo_item_wrapper.dart';
 import 'package:flutter_todo/widgets/top_bar.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:flutter_todo/config/string_constants.dart' as string_constant;
 
 final PanelController _pc1 = PanelController();
 
@@ -23,7 +24,7 @@ List<Todo> getTodoList() {
         title: 'Math',
         isChecked: true,
         image:
-            'https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg'),
+            'https://www.avsim.su/forum/uploads/monthly_2020_10/asdasd.png.0087405eb0bf8c517b1ba4b1d5769ee7.png'),
     Todo(
         title: 'Architecture',
         isChecked: false,
@@ -77,10 +78,14 @@ class UpPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
+      maxHeight: 400.0,
       controller: _pc1,
-      panel: _panelMain(),
-      collapsed: _openPanelButton(),
-      header: _headerPanel(context),
+      panel: const MainUpPanel(),
+      collapsed: ButtonUpPanel(
+        radius: radius,
+        controller: _pc1,
+      ),
+      header: HeaderUpPanel(radius: radius),
       body: SafeArea(
         child: Stack(
           children: [
@@ -90,73 +95,6 @@ class UpPanel extends StatelessWidget {
         ),
       ),
       borderRadius: radius,
-    );
-  }
-
-  Container _headerPanel(BuildContext context) {
-    return Container(
-      height: 84.0,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [ColorConstants.lightOrangeColor, ColorConstants.orangeColor],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: radius,
-      ),
-      child: const Center(
-        child: Text(
-          string_constant.addItem,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
-      ),
-    );
-  }
-
-  GestureDetector _openPanelButton() {
-    return GestureDetector(
-      onTap: () {
-        if (_pc1.isPanelClosed) {
-          _pc1.open();
-        } else {
-          _pc1.close();
-        }
-      },
-      child: Container(
-        height: 84.0,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              ColorConstants.lightOrangeColor,
-              ColorConstants.orangeColor
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-          borderRadius: radius,
-        ),
-        child: const Center(
-          child: Text(
-            string_constant.addItem,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Center _panelMain() {
-    return const Center(
-      child: Text("Sliding Widget"),
     );
   }
 }
