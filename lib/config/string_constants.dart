@@ -12,3 +12,6 @@ const String backButton = 'Back';
 
 // Placeholder
 const String addItemPlaceholder = 'Enter a name';
+
+// Collections
+const String todos = 'todos';

@@ -31,10 +31,7 @@ class TodoItemWrapper extends StatelessWidget {
               itemCount: todoList.length,
               itemBuilder: (context, index) {
                 var item = todoList[index];
-                return TodoItem(
-                  todo: item,
-                  id: index.toString(),
-                );
+                return TodoItem(todo: item);
               },
             ),
           )

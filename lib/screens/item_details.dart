@@ -3,19 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_todo/config/image_constants.dart';
 import 'package:flutter_todo/models/todo.dart';
-import 'package:flutter_todo/screens/todo_wrapper_screen.dart';
 import 'package:flutter_todo/widgets/top_bar.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constant;
 
-class ItemDetails extends StatelessWidget {
-  const ItemDetails({Key? key, required this.id}) : super(key: key);
+class ItemDetails extends StatefulWidget {
+  ItemDetails({Key? key, required this.id}) : super(key: key);
 
   final String id;
 
   @override
-  Widget build(BuildContext context) {
-    Todo item = getTodoList()[int.parse(id)];
+  State<ItemDetails> createState() => _ItemDetailsState();
+}
 
+class _ItemDetailsState extends State<ItemDetails> {
+  Todo item = Todo(isChecked: false, image: '', title: '');
+
+  @override
+  void initState() {
+    super.initState();
+    getDetails();
+  }
+
+  void getDetails() async {
+    var result = await Todo.getTodoDetails(widget.id);
+    setState(() {
+      item = result;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -89,7 +106,7 @@ class ItemDetails extends StatelessWidget {
         image: DecorationImage(
           image: item.image != ''
               ? NetworkImage(item.image)
-              : NetworkImage(AllImages().defaultImage),
+              : NetworkImage(AllImages().loaderImage),
           fit: BoxFit.contain,
         ),
       ),

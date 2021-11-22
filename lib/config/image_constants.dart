@@ -3,6 +3,7 @@ class AllImages {
   static final AllImages _instance = AllImages._();
   factory AllImages() => _instance;
   String image = 'assets/images';
-  String defaultImage =
-      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png';
+  String defaultImage = 'https://www.alldaydr.com/app/images/no_image.png';
+  String loaderImage =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Loader.gif/480px-Loader.gif';
 }

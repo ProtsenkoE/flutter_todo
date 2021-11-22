@@ -1,20 +1,15 @@
-# Building a Sample TODO app using Flutter
+# Building a Sample TODO app 📝 using Flutter and Firebase
 
-A flutter app built using the following Widgets, Assets and other Flutter Properties,
+A simple minimalist app, made for the users who just want to have a simple app for storing their to do task.
 
-- Safe Area Widget
-- Column
-- Row
-- Scaffold
-- BoxDecoration
-- Title
-- Padding
-- Image Asset
-- Network Image
-- Linear Gradient
-- Sliding Up Panel
-- Gesture Detector
-- Font Asset
+## Tech Stacks Used
+
+| Need             | Tech Used                    |
+| ---------------- | ---------------------------- |
+| UI               | Material                     |
+| framework        | Flutter                      |
+| database         | Firebase                     |
+| app icons        | Сupertino                    |
 
 ### Installation
 
@@ -39,36 +34,20 @@ Once you're on `dev` and desktop is enabled, you're ready to run the app:
 
 If you re-start your IDE, you should also see a new launch option for your current desktop platform.
 
-## Layouts Reference and Terminologies:
+## Screen Shots:
 
-### Terminologies:
-
-### Container-Child-Children:
-
-A CONTAINER can have only one child but if you want to have multiple children you need to go with something called as **rows** and **columns**. ROWS are considered horizontal (RH) and COLUMNS are considered vertical (CV). rows and columns they'll have a property name children and  it will be of type  widget list. `children: <Widget>[] (<OTHER WIDGETs here>)`
-
-### Margin and Padding:
-
-when you want to control the area outside and container it is called a margin then you want to control the elements position within the container it is called padding
-
-### Sized Box:
-
-If you want to create a space between the containers within the rows or columns you can use something called as the sized box widget.Its just a place holder.
-
-### Safe Area Widget:
-
-This is a widget which will set itself within the boundaries of any phone, so that it will not be hidden behind any phone specific external design.
-
-## Layouts :
-
-### Layout 1:
+#### Splash Screen:
 
 ![splash1.png](splash1.png)
 
-### Layout 2:
+#### Home Page Screen:
 
-![home1.png](home1.png)
+![home.png](home.png)
 
-### Layout 3:
+#### Add Item Screen:
 
-![slide_panel.png](slide_panel.png)
+![add-item.png](add-item.png)
+
+#### Details Screen:
+
+![details.png](details.png)

@@ -5,10 +5,8 @@ import 'package:flutter_todo/models/todo.dart';
 
 class TodoItem extends StatefulWidget {
   final Todo todo;
-  final String id;
 
-  const TodoItem({Key? key, required this.todo, required this.id})
-      : super(key: key);
+  const TodoItem({Key? key, required this.todo}) : super(key: key);
 
   @override
   State<TodoItem> createState() => _TodoItemState();
@@ -31,7 +29,7 @@ class _TodoItemState extends State<TodoItem> {
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/details/${widget.id}');
+          Navigator.pushNamed(context, '/details/${widget.todo.id}');
         },
         child: Text(
           widget.todo.title,

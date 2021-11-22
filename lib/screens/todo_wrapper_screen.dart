@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/config/string_constants.dart' as string_constants;
 import 'package:flutter_todo/models/todo.dart';
 import 'package:flutter_todo/widgets/button_up_panel.dart';
 import 'package:flutter_todo/widgets/header_up_panel.dart';
@@ -15,42 +17,6 @@ class TodosWrapperScreen extends StatefulWidget {
 
   @override
   State<TodosWrapperScreen> createState() => _TodosWrapperScreenState();
-}
-
-// TODO
-List<Todo> getTodoList() {
-  final List<Todo> todoList = [
-    Todo(
-        title: 'Math',
-        isChecked: true,
-        image:
-            'https://www.avsim.su/forum/uploads/monthly_2020_10/asdasd.png.0087405eb0bf8c517b1ba4b1d5769ee7.png'),
-    Todo(
-        title: 'Architecture',
-        isChecked: false,
-        image:
-            'https://www.cnet.com/a/img/liJ9UZA87zs1viJiuEfVnL7YYfw=/940x0/2020/05/18/5bac8cc1-4bd5-4496-a8c3-66a6cd12d0cb/fb-avatar-2.jpg'),
-    Todo(
-        title: 'Biology',
-        isChecked: false,
-        image:
-            'https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg'),
-    Todo(
-        title: 'Math',
-        isChecked: false,
-        image:
-            'https://www.cnet.com/a/img/liJ9UZA87zs1viJiuEfVnL7YYfw=/940x0/2020/05/18/5bac8cc1-4bd5-4496-a8c3-66a6cd12d0cb/fb-avatar-2.jpg'),
-    Todo(
-        title: 'Architecture',
-        isChecked: false,
-        image:
-            'https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg'),
-    Todo(title: 'Biology', isChecked: false, image: ''),
-    Todo(title: 'Math', isChecked: false, image: ''),
-    Todo(title: 'Architecture', isChecked: false, image: ''),
-  ];
-
-  return todoList;
 }
 
 class _TodosWrapperScreenState extends State<TodosWrapperScreen> {
@@ -86,13 +52,27 @@ class UpPanel extends StatelessWidget {
         controller: _pc1,
       ),
       header: HeaderUpPanel(radius: radius),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            const TopBar(),
-            TodoItemWrapper(todoList: getTodoList()),
-          ],
-        ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection(string_constants.todos)
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return SafeArea(
+            child: Stack(
+              children: [
+                const TopBar(),
+                TodoItemWrapper(todoList: Todo.getTodoList(snapshot.data)),
+                // TodoItemWrapper(todoList: result),
+              ],
+            ),
+          );
+        },
       ),
       borderRadius: radius,
     );
