@@ -18,7 +18,7 @@ class TodoItemWrapper extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height - 270,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -28,6 +28,8 @@ class TodoItemWrapper extends StatelessWidget {
               ),
             ),
             child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
               itemCount: todoList.length,
               itemBuilder: (context, index) {
                 var item = todoList[index];

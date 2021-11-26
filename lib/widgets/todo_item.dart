@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/color_constants.dart';
 import 'package:flutter_todo/config/image_constants.dart';
+import 'package:flutter_todo/config/string_constants.dart' as string_constants;
 import 'package:flutter_todo/models/todo.dart';
+import 'alert.dart';
 
 class TodoItem extends StatefulWidget {
   final Todo todo;
@@ -15,12 +19,34 @@ class TodoItem extends StatefulWidget {
 class _TodoItemState extends State<TodoItem> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _checkbox(),
-        _avatar(),
-        _userName(),
-      ],
+    return Slidable(
+      key: const ValueKey(0),
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (direction) async {
+              await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Alert(widget: widget);
+                },
+              );
+            },
+            backgroundColor: const Color(0xFFFE4A49),
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: string_constants.deleteButton,
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          _checkbox(),
+          _avatar(),
+          _userName(),
+        ],
+      ),
     );
   }
 
@@ -83,9 +109,7 @@ class _TodoItemState extends State<TodoItem> {
       checkColor: ColorConstants.creamColor,
       activeColor: ColorConstants.mintColor,
       onChanged: (bool? value) {
-        setState(() {
-          widget.todo.isChecked = value!;
-        });
+        Api.updateItem(value!, widget.todo.id!);
       },
     );
   }

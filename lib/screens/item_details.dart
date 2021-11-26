@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/image_constants.dart';
 import 'package:flutter_todo/models/todo.dart';
 import 'package:flutter_todo/widgets/top_bar.dart';
@@ -16,7 +17,7 @@ class ItemDetails extends StatefulWidget {
 }
 
 class _ItemDetailsState extends State<ItemDetails> {
-  Todo item = Todo(isChecked: false, image: '', title: '');
+  Todo item = Todo(isChecked: false, image: '', title: '', createdAt: '');
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   }
 
   void getDetails() async {
-    var result = await Todo.getTodoDetails(widget.id);
+    var result = await Api.getTodoDetails(widget.id);
     setState(() {
       item = result;
     });

@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constants;
-import 'package:flutter_todo/models/todo.dart';
-import 'package:flutter_todo/widgets/button_up_panel.dart';
 import 'package:flutter_todo/widgets/header_up_panel.dart';
 import 'package:flutter_todo/widgets/main_up_panel.dart';
 import 'package:flutter_todo/widgets/todo_item_wrapper.dart';
@@ -46,15 +45,15 @@ class UpPanel extends StatelessWidget {
     return SlidingUpPanel(
       maxHeight: 400.0,
       controller: _pc1,
-      panel: const MainUpPanel(),
-      collapsed: ButtonUpPanel(
+      panel: MainUpPanel(controller: _pc1),
+      header: HeaderUpPanel(
         radius: radius,
         controller: _pc1,
       ),
-      header: HeaderUpPanel(radius: radius),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection(string_constants.todos)
+            .orderBy('createdAt', descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (!snapshot.hasData) {
@@ -67,7 +66,16 @@ class UpPanel extends StatelessWidget {
             child: Stack(
               children: [
                 const TopBar(),
-                TodoItemWrapper(todoList: Todo.getTodoList(snapshot.data)),
+                TodoItemWrapper(todoList: Api.getTodoList(snapshot.data)),
+                if (snapshot.data.size == 0)
+                  const Center(
+                    child: Text(
+                      string_constants.noData,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  )
                 // TodoItemWrapper(todoList: result),
               ],
             ),
