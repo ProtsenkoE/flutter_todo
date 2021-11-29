@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/screens/splash_screen.dart';
+import 'package:flutter_todo/presentation/screens/splash_screen.dart';
+import 'package:flutter_todo/presentation/screens/todo_wrapper_screen.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constant;
-import 'package:flutter_todo/screens/todo_wrapper_screen.dart';
-
+import 'package:provider/provider.dart';
 import 'config/router.dart';
+import 'data/store/firebase_store.dart';
+import 'domain/repository/todo_repository.dart';
 
 Future<void> main() async {
   RouterFluro.setupRouter();
@@ -19,14 +21,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      onGenerateRoute: RouterFluro.router.generator,
-      title: string_constant.appName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) =>
+          TodoRepository(firebaseStore: FirebaseStore()),
+      child: MaterialApp(
+        initialRoute: '/',
+        onGenerateRoute: RouterFluro.router.generator,
+        title: string_constant.appName,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
       ),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

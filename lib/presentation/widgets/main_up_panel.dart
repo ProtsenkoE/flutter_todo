@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/color_constants.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constant;
 import 'package:flutter_todo/config/toast_messages.dart';
+import 'package:flutter_todo/domain/repository/todo_repository.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MainUpPanel extends StatefulWidget {
@@ -58,7 +59,8 @@ class _MainUpPanelState extends State<MainUpPanel> {
                 if (newTitle == '') {
                   ToastMessages.error(string_constant.error, context);
                 } else {
-                  Api.addItem(newTitle);
+                  Provider.of<TodoRepository>(context, listen: false)
+                      .addItem(newTitle);
                   _controller.clear();
                   setState(() {
                     newTitle = '';

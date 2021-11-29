@@ -7,13 +7,13 @@ const String appName = 'TODO';
 const String loadingText = 'loading';
 
 // Button Name
-const String addItem = 'Add item';
+const String addItem = 'Add task';
 const String backButton = 'Back';
 const String cancelButton = 'Cancel';
 const String deleteButton = 'Delete';
 
 // Placeholder
-const String addItemPlaceholder = 'Enter a name';
+const String addItemPlaceholder = 'Enter task name';
 
 // No data
 const String noData = 'There is no data 😒';
@@ -22,5 +22,5 @@ const String noData = 'There is no data 😒';
 const String todos = 'todos';
 
 // Messages text
-const String error = 'Please enter your name!';
+const String error = 'Please enter task name!';
 const String deleteItem = 'Are you sure you want to delete?';

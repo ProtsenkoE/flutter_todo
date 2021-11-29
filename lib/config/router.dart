@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_todo/screens/item_details.dart';
+import 'package:flutter_todo/presentation/screens/item_details.dart';
 
 import '../main.dart';
 

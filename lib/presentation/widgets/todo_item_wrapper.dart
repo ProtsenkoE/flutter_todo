@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/models/todo.dart';
-import 'package:flutter_todo/widgets/todo_item.dart';
+import 'package:flutter_todo/domain/models/models.dart';
+import 'package:flutter_todo/presentation/widgets/todo_item.dart';
 
 class TodoItemWrapper extends StatelessWidget {
   const TodoItemWrapper({

@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/config/api.dart';
-import 'package:flutter_todo/widgets/todo_item.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constants;
+import 'package:flutter_todo/domain/repository/todo_repository.dart';
+import 'package:flutter_todo/presentation/widgets/todo_item.dart';
+import 'package:provider/provider.dart';
 
-class Alert extends StatelessWidget {
-  const Alert({
+class AlertDeleteItem extends StatelessWidget {
+  const AlertDeleteItem({
     Key? key,
     required this.widget,
   }) : super(key: key);
@@ -32,7 +33,8 @@ class Alert extends StatelessWidget {
             style: TextStyle(color: Colors.red),
           ),
           onPressed: () {
-            Api.deleteItem(widget.todo.id!);
+            Provider.of<TodoRepository>(context, listen: false)
+                .deleteItem(widget.todo.id!);
             Navigator.of(context).pop();
           },
         ),

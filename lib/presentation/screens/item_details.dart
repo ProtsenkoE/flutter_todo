@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/image_constants.dart';
-import 'package:flutter_todo/models/todo.dart';
-import 'package:flutter_todo/widgets/top_bar.dart';
+import 'package:flutter_todo/domain/models/models.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constant;
+import 'package:flutter_todo/domain/repository/todo_repository.dart';
+import 'package:flutter_todo/presentation/widgets/top_bar.dart';
+import 'package:provider/provider.dart';
 
 class ItemDetails extends StatefulWidget {
-  ItemDetails({Key? key, required this.id}) : super(key: key);
+  const ItemDetails({Key? key, required this.id}) : super(key: key);
 
   final String id;
 
@@ -17,7 +18,7 @@ class ItemDetails extends StatefulWidget {
 }
 
 class _ItemDetailsState extends State<ItemDetails> {
-  Todo item = Todo(isChecked: false, image: '', title: '', createdAt: '');
+  Todo item = const Todo(isChecked: false, image: '', title: '', createdAt: '');
 
   @override
   void initState() {
@@ -26,7 +27,8 @@ class _ItemDetailsState extends State<ItemDetails> {
   }
 
   void getDetails() async {
-    var result = await Api.getTodoDetails(widget.id);
+    var result = await Provider.of<TodoRepository>(context, listen: false)
+        .getTodoDetails(widget.id);
     setState(() {
       item = result;
     });

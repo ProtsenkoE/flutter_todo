@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constants;
-import 'package:flutter_todo/widgets/header_up_panel.dart';
-import 'package:flutter_todo/widgets/main_up_panel.dart';
-import 'package:flutter_todo/widgets/todo_item_wrapper.dart';
-import 'package:flutter_todo/widgets/top_bar.dart';
+import 'package:flutter_todo/config/utils.dart';
+import 'package:flutter_todo/domain/repository/todo_repository.dart';
+import 'package:flutter_todo/presentation/widgets/header_up_panel.dart';
+import 'package:flutter_todo/presentation/widgets/main_up_panel.dart';
+import 'package:flutter_todo/presentation/widgets/todo_item_wrapper.dart';
+import 'package:flutter_todo/presentation/widgets/top_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final PanelController _pc1 = PanelController();
@@ -44,17 +45,20 @@ class UpPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlidingUpPanel(
       maxHeight: 400.0,
+      backdropEnabled: true,
       controller: _pc1,
       panel: MainUpPanel(controller: _pc1),
+      collapsed: HeaderUpPanel(
+        radius: radius,
+        controller: _pc1,
+      ),
       header: HeaderUpPanel(
         radius: radius,
         controller: _pc1,
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection(string_constants.todos)
-            .orderBy('createdAt', descending: true)
-            .snapshots(),
+        stream: Provider.of<TodoRepository>(context, listen: false)
+            .getTodosStream(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
@@ -66,7 +70,8 @@ class UpPanel extends StatelessWidget {
             child: Stack(
               children: [
                 const TopBar(),
-                TodoItemWrapper(todoList: Api.getTodoList(snapshot.data)),
+                TodoItemWrapper(
+                    todoList: Utils.querySnapshotToTodoList(snapshot.data)),
                 if (snapshot.data.size == 0)
                   const Center(
                     child: Text(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_todo/config/api.dart';
 import 'package:flutter_todo/config/color_constants.dart';
 import 'package:flutter_todo/config/image_constants.dart';
 import 'package:flutter_todo/config/string_constants.dart' as string_constants;
-import 'package:flutter_todo/models/todo.dart';
-import 'alert.dart';
+import 'package:flutter_todo/domain/models/models.dart';
+import 'package:flutter_todo/domain/repository/todo_repository.dart';
+import 'package:provider/provider.dart';
+import 'alert_delete_item.dart';
 
 class TodoItem extends StatefulWidget {
   final Todo todo;
@@ -29,7 +30,7 @@ class _TodoItemState extends State<TodoItem> {
               await showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return Alert(widget: widget);
+                  return AlertDeleteItem(widget: widget);
                 },
               );
             },
@@ -56,6 +57,14 @@ class _TodoItemState extends State<TodoItem> {
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, '/details/${widget.todo.id}');
+        },
+        onLongPress: () async {
+          await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDeleteItem(widget: widget);
+            },
+          );
         },
         child: Text(
           widget.todo.title,
@@ -108,8 +117,9 @@ class _TodoItemState extends State<TodoItem> {
       value: widget.todo.isChecked,
       checkColor: ColorConstants.creamColor,
       activeColor: ColorConstants.mintColor,
-      onChanged: (bool? value) {
-        Api.updateItem(value!, widget.todo.id!);
+      onChanged: (bool? isChecked) {
+        Provider.of<TodoRepository>(context, listen: false)
+            .updateItem(isChecked!, widget.todo.id!);
       },
     );
   }

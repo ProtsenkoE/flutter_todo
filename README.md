@@ -34,20 +34,8 @@ Once you're on `dev` and desktop is enabled, you're ready to run the app:
 
 If you re-start your IDE, you should also see a new launch option for your current desktop platform.
 
-## Screen Shots:
+## Screen:
 
-#### Splash Screen:
+#### Todo example:
 
-![splash1.png](splash1.png)
-
-#### Home Page Screen:
-
-![home.png](home.png)
-
-#### Add Item Screen:
-
-![add-item.png](add-item.png)
-
-#### Details Screen:
-
-![details.png](details.png)
+![example.gif](example.gif)
